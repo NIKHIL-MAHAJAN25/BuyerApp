@@ -9,10 +9,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 import com.nikhil.buyerapp.Login.LoginActivity
 import com.nikhil.buyerapp.R
 import com.nikhil.buyerapp.comprofile.ProfileScreen1
+import com.nikhil.buyerapp.comprofile.ProfileScreen2
 import com.nikhil.buyerapp.databinding.ActivitySignup2Binding
 import com.nikhil.buyerapp.databinding.ActivitySignupBinding
 import com.nikhil.buyerapp.dataclasses.User
@@ -40,12 +42,15 @@ class SignupActivity2 : AppCompatActivity() {
             val confirm=binding.etpsswrdsignin3.text.toString()
             if(password==confirm && aemail.isNotBlank() && password.isNotBlank() && confirm.isNotBlank()){
                 auth.createUserWithEmailAndPassword(aemail,password).addOnSuccessListener {
+                    val intent=Intent(this,SignupActivity2::class.java)
+
                     val auid=auth.currentUser?.uid
                     val user=User(uid=auid,email=aemail)
                     if(auid!=null){
-                        db.collection("Users").document(auid).set(user).addOnSuccessListener {
+                        db.collection("Users").document(auid).set(user, SetOptions.merge()).addOnSuccessListener {
                             Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this,ProfileScreen1::class.java))
+                            startActivity(Intent(this, ProfileScreen1::class.java))
+
                         }
                     }
 

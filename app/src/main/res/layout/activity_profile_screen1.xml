@@ -154,7 +154,6 @@
 
             <EditText
                 android:textColorHint="#495048"
-
                 app:hintTextColor="#698B6A"
                 android:id="@+id/etPhone"
                 android:layout_width="0dp"
@@ -207,7 +206,6 @@
         app:cardCornerRadius="40dp"
         app:strokeWidth="0dp"
         android:textColorHint="#495048"
-
         app:hintTextColor="#698B6A"
         app:cardBackgroundColor="#DCE2D8"
         app:layout_constraintTop_toBottomOf="@id/etoccup"
@@ -216,9 +214,8 @@
         android:layout_marginTop="24dp"
         >
 
-        <AutoCompleteTextView
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:textColorHint="#495048"
-
             app:hintTextColor="#698B6A"
             android:id="@+id/actState"
             android:layout_width="match_parent"
@@ -228,7 +225,7 @@
             android:textSize="16sp"
             android:hint="Select State"
             android:background="@android:color/transparent"
-            android:inputType="none" />
+            android:inputType="text" />
     </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_next"

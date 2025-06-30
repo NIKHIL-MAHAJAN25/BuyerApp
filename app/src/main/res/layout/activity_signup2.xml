@@ -106,7 +106,7 @@
             android:id="@+id/etpsswrdsignin2"
             android:paddingVertical="20dp"
             android:layout_width="match_parent"
-            android:textColor="@color/white"
+            android:textColor="#495048"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             />
@@ -136,7 +136,7 @@
             android:paddingVertical="20dp"
 
             android:layout_width="match_parent"
-            android:textColor="@color/white"
+            android:textColor="#495048"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             />

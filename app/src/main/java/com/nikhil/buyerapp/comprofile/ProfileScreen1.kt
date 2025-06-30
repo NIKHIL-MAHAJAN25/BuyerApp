@@ -13,6 +13,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
@@ -24,9 +25,11 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 import com.nikhil.buyerapp.R
 import com.nikhil.buyerapp.databinding.ActivityProfileScreen1Binding
+import com.nikhil.buyerapp.dataclasses.User
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.storage.UploadStatus
 import io.github.jan.supabase.storage.storage
@@ -48,14 +51,56 @@ class ProfileScreen1 : AppCompatActivity() {
         enableEdgeToEdge()
         binding=ActivityProfileScreen1Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        val statesList = listOf(
+            "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
+            "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
+            "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
+            "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
+            "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
+            "Uttar Pradesh", "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands",
+            "Chandigarh", "Dadra and Nagar Haveli and Daman and Diu", "Delhi",
+            "Jammu and Kashmir", "Ladakh", "Lakshadweep", "Puducherry"
+        )
+        
+        val aradapter=ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,statesList)
+        binding.actState.setAdapter(aradapter)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+       
+
         supabaseClient=(this.application as supabasefile).supabaseClient
         binding.profileImage2.setOnClickListener {
             checkPermission()
+        }
+        binding.btnNext.setOnClickListener {
+
+
+            val uid=auth.currentUser?.uid
+            val aname=binding.etname2.text.toString()
+            val code=binding.countryCodePicker.selectedCountryCodeWithPlus
+            val numbere=binding.etPhone.text.toString()
+            val full="$code$numbere"
+            val occupations=binding.etoccup2.text.toString()
+            val states=binding.actState.text.toString()
+            val userUpdates = mapOf(
+                "fullName" to aname,
+                "phoneNumber" to full,
+                "occupation" to occupations,
+                "state" to states
+            )
+
+
+            if (uid != null) {
+                db.collection("Users").document(uid).update(userUpdates).addOnSuccessListener {
+                    Toast.makeText(this,"Data saved",Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this,ProfileScreen2::class.java))
+                }
+            }
+
         }
 
     }
@@ -203,7 +248,7 @@ class ProfileScreen1 : AppCompatActivity() {
                 Log.d("ProfileFragment", "Updating Firestore with new image URL")
                 db.collection("Users")
                     .document(currentUser.uid)
-                    .update("profileimageurl", imageUrl)
+                    .update("profilePictureUrl",imageUrl)
                     .addOnSuccessListener {
                         Log.d("ProfileFragment", "Firestore update successful")
                         Toast.makeText(this, "Profile image updated!", Toast.LENGTH_SHORT).show()
