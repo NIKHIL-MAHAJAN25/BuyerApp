@@ -61,6 +61,10 @@ dependencies {
     //glide
     implementation ("com.github.bumptech.glide:glide:4.11.0")
     implementation(libs.firebase.firestore)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
     implementation("com.hbb20:ccp:2.6.1")
     implementation("androidx.viewpager2:viewpager2:1.0.0")

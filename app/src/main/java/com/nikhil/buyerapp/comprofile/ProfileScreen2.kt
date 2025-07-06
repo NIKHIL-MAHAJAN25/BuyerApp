@@ -1,5 +1,6 @@
 package com.nikhil.buyerapp.comprofile
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
@@ -50,6 +51,7 @@ class ProfileScreen2 : AppCompatActivity() {
         }
         binding.btnNext.setOnClickListener {
             savedata()
+            startActivity(Intent(this,ProfileScreen3::class.java))
         }
     }
     private fun savedata(){
