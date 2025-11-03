@@ -1,7 +1,15 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+}
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) { // <-- This check is missing
+    localProperties.load(FileInputStream(localPropertiesFile))
 }
 
 android {
@@ -9,6 +17,8 @@ android {
     compileSdk = 35
 
     defaultConfig {
+        buildConfigField("String", "SUPABASE_URL", "\"${localProperties.getProperty("SUPABASE_URL")}\"")
+        buildConfigField("String", "SUPABASE_KEY", "\"${localProperties.getProperty("SUPABASE_KEY")}\"")
         applicationId = "com.nikhil.buyerapp"
         minSdk = 24
         targetSdk = 35
@@ -49,6 +59,7 @@ android {
     }
     buildFeatures{
         viewBinding=true
+        buildConfig=true
     }
 }
 
