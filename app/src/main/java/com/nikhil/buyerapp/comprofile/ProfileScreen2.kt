@@ -3,6 +3,7 @@ package com.nikhil.buyerapp.comprofile
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -11,14 +12,22 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.chip.Chip
 import com.google.firebase.Firebase
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.firestore.firestore
 import com.nikhil.buyerapp.R
 import com.nikhil.buyerapp.databinding.ActivityProfileScreen2Binding
+import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 
 class ProfileScreen2 : AppCompatActivity() {
     lateinit var binding:ActivityProfileScreen2Binding
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var storedid:String
+    lateinit var resendtoken:PhoneAuthProvider.ForceResendingToken
     private val languages = listOf("Telugu",
         "English",
         "Assamese",
@@ -54,16 +63,16 @@ class ProfileScreen2 : AppCompatActivity() {
             startActivity(Intent(this,EnterCode::class.java))
         }
     }
-    private fun savedata(){
-        val biotext=binding.etBio.text.toString()
+    private fun savedata() {
+        val biotext = binding.etBio.text.toString()
         if (biotext.isEmpty()) {
             Toast.makeText(this, "Please enter your bio", Toast.LENGTH_SHORT).show()
             return
         }
-        val selected= mutableListOf<String>()
-        for(i in 0 until binding.chipGroupLang.childCount){
-            val chip=binding.chipGroupLang.getChildAt(i) as Chip
-            if(chip.isChecked){
+        val selected = mutableListOf<String>()
+        for (i in 0 until binding.chipGroupLang.childCount) {
+            val chip = binding.chipGroupLang.getChildAt(i) as Chip
+            if (chip.isChecked) {
                 selected.add(chip.text.toString())
             }
         }
@@ -71,24 +80,31 @@ class ProfileScreen2 : AppCompatActivity() {
             Toast.makeText(this, "Please select at least one language", Toast.LENGTH_SHORT).show()
             return
         }
-
-        val user= mapOf(
+        generate { code ->
+            val user = mapOf(
                 "bio" to biotext,
-            "language" to selected,
-            "profilecompleted" to true,
-            "approved" to false
-        )
-        val uid=auth.currentUser?.uid
+                "language" to selected,
+                "profilecomplete" to true,
+                "approved" to false,
+                "security" to code
+            )
+            val uid = auth.currentUser?.uid
 
-        if (uid != null) {
-            db.collection("Users").document(uid).update(user).addOnSuccessListener {
-                Toast.makeText(this, "Profile updated!", Toast.LENGTH_SHORT).show()
-            }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            if (uid != null) {
+                db.collection("Users").document(uid).update(user).addOnSuccessListener {
+                    fetchphone(uid){number->
+                        if (number != null) {
+                            sendOtp(number)
+                        }
+                    }
+                    Toast.makeText(this, "Profile updated! Security code sent ${code}", Toast.LENGTH_SHORT).show()
                 }
-        } else {
-            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
+            }
         }
     }
     private fun populate() {
@@ -105,6 +121,27 @@ class ProfileScreen2 : AppCompatActivity() {
             binding.chipGroupLang.addView(chip)
 
         }
+    }
+    private fun fetchphone(uid:String,onResult: (String?) -> Unit)
+    {
+        if(uid!=null)
+        {
+            db.collection("Users").document(uid).get().addOnSuccessListener { document->
+                if(document.exists() && document!=null)
+                {
+                    val number=document.getString("phoneNumber")
+                    onResult(number)
+                }
+            }
+        }else{
+            onResult(null)
+        }
+    }
+
+    private fun generate(onResult: (Int?)->Unit)
+    {
+        val random= Random.nextInt(100000,999999)
+        onResult(random)
     }
 
 }

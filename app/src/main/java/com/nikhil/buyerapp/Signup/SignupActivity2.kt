@@ -52,7 +52,9 @@ class SignupActivity2 : AppCompatActivity() {
                     val user= mapOf(
                         "email" to aemail,
                         "uid" to auid,
+                        "profilecomplete" to false,
                         "createdon" to date,
+                        "approved" to false,
                         "userole" to UserRole.CLIENT.name
 
                     )

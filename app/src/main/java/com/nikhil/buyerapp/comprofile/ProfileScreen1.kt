@@ -51,7 +51,9 @@ class ProfileScreen1 : AppCompatActivity() {
         enableEdgeToEdge()
         binding=ActivityProfileScreen1Binding.inflate(layoutInflater)
         setContentView(binding.root)
-        
+        val occupationlist= listOf(
+            "Business Owner","Salaried Employee","Freelancer/self Employed","Student","Not applicable"
+        )
         val statesList = listOf(
             "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
             "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
@@ -70,7 +72,11 @@ class ProfileScreen1 : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-       
+       val ocadapter=ArrayAdapter(this,R.layout.item_dropdown_interest,occupationlist)
+        binding.etoccup2.setAdapter(ocadapter)
+        binding.etoccup2.setOnClickListener {
+            binding.etoccup2.showDropDown()
+        }
 
         supabaseClient=(this.application as supabasefile).supabaseClient
         binding.profileImage2.setOnClickListener {
@@ -86,13 +92,14 @@ class ProfileScreen1 : AppCompatActivity() {
             val full="$code$numbere"
             val occupations=binding.etoccup2.text.toString()
             val states=binding.actState.text.toString()
+
             val userUpdates = mapOf(
                 "fullName" to aname,
                 "phoneNumber" to full,
                 "occupation" to occupations,
-                "state" to states,
-                "profilecomplete" to false,
                 "state" to states
+
+
             )
             if (uid != null) {
                 db.collection("Users").document(uid).update(userUpdates).addOnSuccessListener {

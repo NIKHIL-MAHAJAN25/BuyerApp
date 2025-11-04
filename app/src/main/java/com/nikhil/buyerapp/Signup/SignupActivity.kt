@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.nikhil.buyerapp.Login.LoginActivity
 import com.nikhil.buyerapp.R
 import com.nikhil.buyerapp.databinding.ActivitySignupBinding
 
@@ -32,7 +33,9 @@ class SignupActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        binding.btnsignin1.setOnClickListener {
+            startActivity(Intent(this,LoginActivity::class.java))
+        }
         setupViewPager()
         setupDotsIndicator()
         setupButtonClick()
