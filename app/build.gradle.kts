@@ -66,6 +66,10 @@ android {
 dependencies {
     implementation("io.ktor:ktor-client-apache5:3.1.3")
     implementation("io.ktor:ktor-client-okhttp:3.1.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    // Retrofit for networking (to call Brandfetch API)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //supabase storage
     implementation("com.airbnb.android:lottie:6.0.0")
 

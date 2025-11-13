@@ -20,6 +20,12 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.firestore.firestore
 import com.nikhil.buyerapp.R
 import com.nikhil.buyerapp.databinding.ActivityProfileScreen2Binding
+import com.nikhil.buyerapp.mailretro.ApiResponse
+import com.nikhil.buyerapp.mailretro.Retromail
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
@@ -92,9 +98,9 @@ class ProfileScreen2 : AppCompatActivity() {
 
             if (uid != null) {
                 db.collection("Users").document(uid).update(user).addOnSuccessListener {
-                    fetchphone(uid){number->
+                    fetchmail(uid){number->
                         if (number != null) {
-                            sendOtp(number)
+                            sendOtp(number,code.toString())
                         }
                     }
                     Toast.makeText(this, "Profile updated! Security code sent ${code}", Toast.LENGTH_SHORT).show()
@@ -122,14 +128,14 @@ class ProfileScreen2 : AppCompatActivity() {
 
         }
     }
-    private fun fetchphone(uid:String,onResult: (String?) -> Unit)
+    private fun fetchmail(uid:String,onResult: (String?) -> Unit)
     {
         if(uid!=null)
         {
             db.collection("Users").document(uid).get().addOnSuccessListener { document->
                 if(document.exists() && document!=null)
                 {
-                    val number=document.getString("phoneNumber")
+                    val number=document.getString("email")
                     onResult(number)
                 }
             }
@@ -142,6 +148,28 @@ class ProfileScreen2 : AppCompatActivity() {
     {
         val random= Random.nextInt(100000,999999)
         onResult(random)
+    }
+    fun sendOtp(email:String,otp:String)
+    {
+        val data= mapOf("email" to email,"otp" to otp)
+        Retromail.instance.sendOtp(data).enqueue(object :Callback<ApiResponse>
+        {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+               val res=response.body()
+                val msg=res?.message ?: "Unexpected response"
+                Log.e("mail","mail sent")
+                Toast.makeText(this@ProfileScreen2, msg, Toast.LENGTH_SHORT).show()
+
+            }
+
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Log.e("mail","mail not sent")
+
+                Toast.makeText(this@ProfileScreen2, "Failed: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
     }
 
 }
