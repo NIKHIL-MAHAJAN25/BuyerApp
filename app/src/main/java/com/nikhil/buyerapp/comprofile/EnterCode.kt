@@ -89,7 +89,7 @@ class EnterCode : AppCompatActivity() {
 //                        startActivity(Intent(this,HomeActivity::class.java))
                     }
                     else{
-                        Log.d("otp", "Invalid OTP ❌")
+                        Log.d("otp", "Invalid OTP")
 
                     }
                 }

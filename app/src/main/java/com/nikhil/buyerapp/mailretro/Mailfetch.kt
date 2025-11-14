@@ -6,8 +6,8 @@ import retrofit2.http.POST
 
 interface Mailfetch {
     @POST("send-welcome")
-    fun sendOtp(@Body data:Map<String,String>): Call<ApiResponse>
+    fun sendWelcome(@Body data:Map<String,String>): Call<ApiResponse>
     @POST("send-otp")
-   fun sendWelcome(@Body data: Map<String, String>): Call<ApiResponse>
+   fun sendOtp(@Body data: Map<String, String>): Call<ApiResponse>
 
 }
