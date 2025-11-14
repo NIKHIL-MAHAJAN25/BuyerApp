@@ -12,7 +12,6 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.nikhil.buyerapp.R
-import com.nikhil.buyerapp.basichome.homescreen
 import com.nikhil.buyerapp.comprofile.ProfileScreen1
 import com.nikhil.buyerapp.comprofile.ProfileScreen2
 import com.nikhil.buyerapp.databinding.ActivityLoginBinding

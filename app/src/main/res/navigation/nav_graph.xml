@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/home"
     android:id="@+id/nav_graph">
+    <fragment
+        android:id="@+id/home"
+        android:name="com.nikhil.buyerapp.basichome.HomeFragment"
+        android:label="homefrag"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/search"
+        android:name="com.nikhil.buyerapp.basichome.SearchFragment"
+        android:label="searchfrag"
+        tools:layout="@layout/fragment_search"/>
+    <fragment
+        android:id="@+id/orders"
+        android:name="com.nikhil.buyerapp.basichome.OrderFragment"
+        android:label="orderfrag"
+        tools:layout="@layout/fragment_order"/>
+    <fragment
+        android:id="@+id/chat"
+        android:name="com.nikhil.buyerapp.basichome.ChatFragment"
+        android:label="chatfrag"
+        tools:layout="@layout/fragment_chat"/>
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.nikhil.buyerapp.basichome.ProfileFragment"
+        android:label="profilefrag"
+        tools:layout="@layout/fragment_profile"/>
 
 </navigation>
