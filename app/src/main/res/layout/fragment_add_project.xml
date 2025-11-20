@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    tools:context=".Orders.AddProjectFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hguide1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vguide1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vguide2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hguide2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97" />
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/baseline_arrow_back_ios_24"
+        android:contentDescription="Back"
+        app:layout_constraintStart_toEndOf="@id/vguide1"
+        app:layout_constraintTop_toBottomOf="@+id/hguide1" />
+
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post a New Opening"
+        android:textColor="@color/darkgreen"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+        app:layout_constraintStart_toEndOf="@+id/btnBack"
+        app:layout_constraintTop_toTopOf="@+id/btnBack"
+        android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:id="@+id/lblTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Project Title"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack"
+        app:layout_constraintStart_toEndOf="@id/vguide1" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="Ex: Build a News App"
+        android:textColorHint="#495048"
+        app:boxBackgroundColor="@color/bg"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/darkgreen"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/darkgreen"
+        app:layout_constraintEnd_toStartOf="@+id/vguide2"
+        app:layout_constraintStart_toEndOf="@+id/vguide1"
+        app:layout_constraintTop_toBottomOf="@+id/lblTitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"
+            android:paddingVertical="10dp"
+            android:textColor="#495048" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/lblCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Category"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/layoutTitle"
+        app:layout_constraintStart_toEndOf="@id/vguide1" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="Select Category"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        app:boxBackgroundColor="@color/bg"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/darkgreen"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/darkgreen"
+        app:layout_constraintEnd_toStartOf="@+id/vguide2"
+        app:layout_constraintStart_toEndOf="@+id/vguide1"
+        app:layout_constraintTop_toBottomOf="@+id/lblCategory">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/etCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:paddingVertical="10dp"
+            android:textColor="#495048" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/lblSkills"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Required Skills"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/layoutCategory"
+        app:layout_constraintStart_toEndOf="@id/vguide1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddSkill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+ Add Skills"
+        android:textColor="@color/darkgreen"
+        android:backgroundTint="@color/bg"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:strokeColor="@color/darkgreen"
+        app:layout_constraintTop_toBottomOf="@id/lblSkills"
+        app:layout_constraintStart_toEndOf="@id/vguide1"
+        android:layout_marginTop="5dp"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupSkills"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/btnAddSkill"
+        app:layout_constraintStart_toEndOf="@id/vguide1"
+        app:layout_constraintEnd_toStartOf="@id/vguide2">
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/lblBudget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Budget"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroupSkills"
+        app:layout_constraintStart_toEndOf="@id/vguide1" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutBudget"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="Ex: 500"
+        app:boxBackgroundColor="@color/bg"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/darkgreen"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/darkgreen"
+        app:layout_constraintEnd_toStartOf="@+id/vguide2"
+        app:layout_constraintStart_toEndOf="@+id/vguide1"
+        app:layout_constraintTop_toBottomOf="@+id/lblBudget">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etBudget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:paddingVertical="10dp"
+            android:textColor="#495048" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/lblDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Description"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/layoutBudget"
+        app:layout_constraintStart_toEndOf="@id/vguide1" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="Describe requirements..."
+        app:boxBackgroundColor="@color/bg"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/darkgreen"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/darkgreen"
+        app:layout_constraintEnd_toStartOf="@+id/vguide2"
+        app:layout_constraintStart_toEndOf="@+id/vguide1"
+        app:layout_constraintTop_toBottomOf="@+id/lblDesc">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top|start"
+            android:paddingVertical="15dp"
+            android:textColor="#495048" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPostJob"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Post Job"
+        android:textAllCaps="true"
+        android:padding="15dp"
+        app:cornerRadius="10dp"
+        android:textColor="@color/white"
+        android:backgroundTint="#698B6A"
+        app:layout_constraintBottom_toTopOf="@+id/hguide2"
+        app:layout_constraintEnd_toStartOf="@+id/vguide2"
+        app:layout_constraintStart_toEndOf="@+id/vguide1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

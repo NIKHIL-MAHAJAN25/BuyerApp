@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,14 +16,22 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
+import com.nikhil.buyerapp.basichome.hosthome
 
 import com.nikhil.buyerapp.databinding.ActivityEnterCodeBinding
+import com.nikhil.buyerapp.mailretro.ApiResponse
+import com.nikhil.buyerapp.mailretro.Retromail
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.random.Random
 
 class EnterCode : AppCompatActivity() {
     lateinit var binding: ActivityEnterCodeBinding
     private var auth: FirebaseAuth =FirebaseAuth.getInstance()
     val auid=auth.currentUser?.uid
     val db=Firebase.firestore
+    var email:String?=null;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -68,6 +77,37 @@ class EnterCode : AppCompatActivity() {
 
             })
         }
+        binding.btnResendCode.setOnClickListener {
+
+                if (auid != null) {
+
+                    generate { code->
+                        val user= mapOf(
+                            "security" to code
+                        )
+                        db.collection("Users").document(auid).update(user).addOnSuccessListener {
+                            fetchmail(auid){mail->
+                                if (mail != null) {
+                                    sendOtp(mail,code.toString())
+                                }
+                            }
+                            Toast.makeText(this, "Security code sent on your mail", Toast.LENGTH_SHORT).show()
+                        }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, "Failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+
+                } else {
+                    Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
+                }
+
+        }
+
+
+
+
+
         binding.btnVerifyOtp.setOnClickListener {
             val code = boxes.joinToString("") { it.text.toString() }
 
@@ -86,7 +126,7 @@ class EnterCode : AppCompatActivity() {
 
                         }
                         Log.d("otp","otp verified")
-//                        startActivity(Intent(this,HomeActivity::class.java))
+                        startActivity(Intent(this,hosthome::class.java))
                     }
                     else{
                         Log.d("otp", "Invalid OTP")
@@ -117,13 +157,56 @@ class EnterCode : AppCompatActivity() {
 
             db.collection("Users").document(auid).get().addOnSuccessListener {document->
                 if(document!=null && document.exists()){
-                    val securecode=document.getString("approvalCode")
+                    val securecode=document.get("security")
+                    val securecode2 = securecode?.toString()
                     Log.d("code","Code:$securecode")
-                    onResult(securecode)
+                    onResult(securecode2)
                 }
                 else{
                     onResult(null)
                 }
             }
+    }
+    private fun fetchmail(uid:String,onResult: (String?) -> Unit)
+    {
+        if(uid!=null)
+        {
+            db.collection("Users").document(uid).get().addOnSuccessListener { document->
+                if(document.exists() && document!=null)
+                {
+                    val number=document.getString("email")
+                    onResult(number)
+                }
+            }
+        }else{
+            onResult(null)
+        }
+    }
+    private fun generate(onResult: (Int?)->Unit)
+    {
+        val random= Random.nextInt(100000,999999)
+        onResult(random)
+    }
+    fun sendOtp(email:String,otp:String)
+    {
+        val data= mapOf("email" to email,"otp" to otp)
+        Retromail.instance.sendOtp(data).enqueue(object : Callback<ApiResponse>
+        {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                val res=response.body()
+                val msg=res?.message ?: "Unexpected response"
+                Log.e("mail","mail sent")
+                Toast.makeText(this@EnterCode, msg, Toast.LENGTH_SHORT).show()
+
+            }
+
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Log.e("mail","mail not sent")
+
+                Toast.makeText(this@EnterCode, "Failed: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
     }
 }

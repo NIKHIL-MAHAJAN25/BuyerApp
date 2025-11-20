@@ -65,225 +65,48 @@
         android:layout_height="36dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+
         app:layout_constraintEnd_toEndOf="@id/profileImage"
         app:layout_constraintBottom_toBottomOf="@id/profileImage"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@android:color/transparent"
         app:tint="@color/black"
-        app:maxImageSize="24dp"
+
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/circleview"
+
         app:fabSize="mini"/>
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cvmyaccount"
-        android:layout_width="match_parent"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profileImage2"
+        android:layout_width="36dp"
+
+        android:layout_height="36dp"
+        android:clickable="true"
+        app:layout_constraintTop_toTopOf="@id/cameraFab"
+
+        android:elevation="6dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/baseline_image_24"
+        app:layout_constraintBottom_toBottomOf="@id/cameraFab"
+        app:layout_constraintEnd_toEndOf="@id/cameraFab"
+        app:layout_constraintStart_toStartOf="@id/cameraFab"
+        app:shapeAppearanceOverlay="@style/circleview" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEditProfile"
+        android:layout_marginTop="10dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="0dp"
+        app:cornerRadius="30dp"
+        android:text="Edit Profile"
+        android:textColor="@color/black"
+        app:strokeColor="@color/darkgreen"
+        app:strokeWidth="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/vguide2"
 
-        app:layout_constraintTop_toBottomOf="@+id/profileImage"
-        app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="#779B7F">
-
-        <TextView
-            android:id="@+id/tvmyaccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="13dp"
-            android:textColor="@color/white"
-            android:layout_marginStart="22dp"
-            android:text="My Account"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintStart_toStartOf="@+id/vguide1"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/optionsCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="0dp"
 
-        app:cardElevation="4dp"
-        android:backgroundTint="#DCE2D8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cvmyaccount">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <!-- View & Active Transaction -->
-            <LinearLayout
-                android:id="@+id/transactionOption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/baseline_edit_24"
-                    />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:text="Edit Profile"
-                    android:textColor="#374151"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/baseline_keyboard_arrow_right_24"
-                    />
-
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-
-                android:background="#F3F4F6" />
-
-            <!-- Edit Profile -->
-            <LinearLayout
-                android:id="@+id/editProfileOption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/baseline_settings_24"
-                    />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:text="Settings"
-                    android:textColor="#374151"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/baseline_keyboard_arrow_right_24"
-                    />
-
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-
-                android:background="#F3F4F6" />
-
-            <!-- Discount Voucher -->
-            <LinearLayout
-                android:id="@+id/discountOption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/baseline_fiber_pin_24"
-                    />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:text="Change Password"
-                    android:textColor="#374151"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/baseline_keyboard_arrow_right_24"
-                    />
-
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-
-                android:background="#F3F4F6" />
-
-            <!-- Support -->
-            <LinearLayout
-                android:id="@+id/logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/baseline_lock_24"
-                    />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:text="Log Out"
-                    android:textColor="#374151"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/baseline_keyboard_arrow_right_24"
-                    />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
 
 
 

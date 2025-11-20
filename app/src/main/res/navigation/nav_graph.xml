@@ -8,7 +8,7 @@
         android:id="@+id/home"
         android:name="com.nikhil.buyerapp.basichome.HomeFragment"
         android:label="homefrag"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home2"/>
     <fragment
         android:id="@+id/search"
         android:name="com.nikhil.buyerapp.basichome.SearchFragment"
@@ -18,7 +18,11 @@
         android:id="@+id/orders"
         android:name="com.nikhil.buyerapp.basichome.OrderFragment"
         android:label="orderfrag"
-        tools:layout="@layout/fragment_order"/>
+        tools:layout="@layout/fragment_order">
+        <action
+            android:id="@+id/action_post"
+            app:destination="@+id/addpost"/>
+    </fragment>
     <fragment
         android:id="@+id/chat"
         android:name="com.nikhil.buyerapp.basichome.ChatFragment"
@@ -29,5 +33,10 @@
         android:name="com.nikhil.buyerapp.basichome.ProfileFragment"
         android:label="profilefrag"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/addpost"
+        android:name="com.nikhil.buyerapp.Orders.AddProjectFragment"
+        android:label="post"
+        tools:layout="@layout/fragment_add_project"/>
 
 </navigation>

@@ -98,9 +98,9 @@ class ProfileScreen2 : AppCompatActivity() {
 
             if (uid != null) {
                 db.collection("Users").document(uid).update(user).addOnSuccessListener {
-                    fetchmail(uid){number->
-                        if (number != null) {
-                            sendOtp(number,code.toString())
+                    fetchmail(uid){mail->
+                        if (mail != null) {
+                            sendOtp(mail,code.toString())
                         }
                     }
                     Toast.makeText(this, "Profile updated! Security code sent ${code}", Toast.LENGTH_SHORT).show()

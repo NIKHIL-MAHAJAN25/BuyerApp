@@ -19,6 +19,7 @@ android {
     defaultConfig {
         buildConfigField("String", "SUPABASE_URL", "\"${localProperties.getProperty("SUPABASE_URL")}\"")
         buildConfigField("String", "SUPABASE_KEY", "\"${localProperties.getProperty("SUPABASE_KEY")}\"")
+        buildConfigField("String","NEWS_KEY","\"${localProperties.getProperty("NEWS_KEY")}\"")
         applicationId = "com.nikhil.buyerapp"
         minSdk = 24
         targetSdk = 35
@@ -64,6 +65,7 @@ android {
 }
 
 dependencies {
+    implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.3")
     implementation("io.ktor:ktor-client-apache5:3.1.3")
     implementation("io.ktor:ktor-client-okhttp:3.1.3")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
@@ -82,6 +84,8 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.recyclerview)
     annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
     implementation("com.hbb20:ccp:2.6.1")
     implementation("androidx.viewpager2:viewpager2:1.0.0")

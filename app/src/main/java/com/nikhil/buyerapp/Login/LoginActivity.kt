@@ -12,6 +12,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.nikhil.buyerapp.R
+import com.nikhil.buyerapp.basichome.hosthome
 import com.nikhil.buyerapp.comprofile.ProfileScreen1
 import com.nikhil.buyerapp.comprofile.ProfileScreen2
 import com.nikhil.buyerapp.databinding.ActivityLoginBinding
@@ -59,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                                     }
                                     status && appstatus == true ->{
                                         showtoast("Successfully logged in")
-                                        startActivity(Intent(this,homescreen::class.java))
+                                        startActivity(Intent(this,hosthome::class.java))
                                     }
                                 }
                             }else{
