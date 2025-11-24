@@ -24,6 +24,11 @@
             app:destination="@+id/addpost"/>
     </fragment>
     <fragment
+        android:id="@+id/gemini"
+        android:name="com.nikhil.buyerapp.basichome.GeminiFragment"
+        android:label="gemfrag"
+        tools:layout="@layout/fragment_gemini"/>
+    <fragment
         android:id="@+id/chat"
         android:name="com.nikhil.buyerapp.basichome.ChatFragment"
         android:label="chatfrag"

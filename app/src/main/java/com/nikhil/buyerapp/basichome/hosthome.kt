@@ -17,6 +17,9 @@ import com.getkeepsafe.taptargetview.TapTargetView
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.Firebase
+import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
+
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.nikhil.buyerapp.R
@@ -30,6 +33,7 @@ class hosthome : AppCompatActivity() {
     private val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        PDFBoxResourceLoader.init(applicationContext)
         enableEdgeToEdge()
         binding=ActivityHosthomeBinding.inflate(layoutInflater)
         setContentView(binding.root)

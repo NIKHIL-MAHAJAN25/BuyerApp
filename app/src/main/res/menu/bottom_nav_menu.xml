@@ -15,7 +15,9 @@
         android:icon="@drawable/outline_sticky_note_2_24"
         android:title="Orders" />
 
-
+    <item android:id="@+id/gemini"
+        android:icon="@drawable/ai__2_"
+        android:title="Analyzer"/>
     <item
         android:id="@+id/profile"
         android:icon="@drawable/profile"
