@@ -16,7 +16,7 @@
         android:title="Orders" />
 
     <item android:id="@+id/gemini"
-        android:icon="@drawable/ai__2_"
+        android:icon="@drawable/aiiii"
         android:title="Analyzer"/>
     <item
         android:id="@+id/profile"

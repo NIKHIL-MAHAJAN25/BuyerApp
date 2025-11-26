@@ -6,11 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.ServerTimestamp
+import com.google.firebase.firestore.firestore
 import com.nikhil.buyerapp.R
 import com.nikhil.buyerapp.databinding.FragmentAddProjectBinding
+import com.nikhil.buyerapp.dataclasses.ProjectStatus
+import com.nikhil.buyerapp.utils.UserUtils
+import com.nikhil.buyerapp.utils.snack
 import com.nikhil.sellerapp.skills.SkillData
+import kotlinx.coroutines.launch
+import java.sql.Timestamp
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +39,10 @@ class AddProjectFragment : Fragment() {
     private val binding get()=_binding!!
     private val selectedSkillsList = mutableListOf<String>()
     private var currentAvailableSkills: List<String> = emptyList()
+    private var clientName: String = "Loading..."
+    private val db=Firebase.firestore
+    private val auth:FirebaseAuth=FirebaseAuth.getInstance()
+    val uid=auth.currentUser?.uid
     private var param1: String? = null
     private var param2: String? = null
 
@@ -48,8 +64,15 @@ class AddProjectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lifecycleScope.launch {
+            // This one line does all the heavy lifting
+            clientName = UserUtils.fetchCurrentUserName()
+        }
         setupCategoryDropdown()
         setupSkillButton()
+        binding.btnPostJob.setOnClickListener {
+            savejob()
+        }
     }
 
     companion object {
@@ -70,6 +93,55 @@ class AddProjectFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+//    @DocumentId
+//    val projectid:String="",
+
+
+
+
+
+
+
+
+    private fun savejob()
+    {
+        val projtitle=binding.etTitle.text.toString()
+        val cat=binding.etCategory.text.toString()
+        val clientuid=uid
+        val clientname=clientName
+        val desc=binding.etDesc.text.toString()
+        val budgetStr = binding.etBudget.text.toString().trim()
+        val budget = budgetStr.toDoubleOrNull() ?: 0.0
+
+        if (selectedSkillsList.isEmpty()) {
+            snack("Please select at least one skill")
+            return
+        }
+        val newProjectId = db.collection("Projects").document().id
+        val new= mapOf(
+            "projectid" to newProjectId,
+            "clientuid" to clientuid,
+            "clientName" to clientname,
+            "title" to projtitle,
+            "description" to desc,
+            "status" to ProjectStatus.OPEN.name,
+            "budget" to budget,
+            "requiredSkills" to selectedSkillsList,
+            "category" to cat,
+
+            )
+        binding.btnPostJob.isEnabled = false
+        db.collection("Projects").document(newProjectId).set(new).addOnSuccessListener {
+            snack("Job posted")
+            findNavController().navigateUp()
+        }.addOnFailureListener { e->
+            binding.btnPostJob.isEnabled=true
+            snack("Error:${e.message}")
+
+        }
+
+
     }
     private fun setupCategoryDropdown() {
         // A. Get List of Categories from your Object
