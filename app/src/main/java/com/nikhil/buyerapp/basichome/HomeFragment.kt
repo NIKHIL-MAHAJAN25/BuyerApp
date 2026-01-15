@@ -73,9 +73,8 @@ class HomeFragment : Fragment() {
         setupnews()
         loadinfo()
         fetchnews()
-        binding.seealljobs.setOnClickListener {
-            fetchnews()
-        }
+
+
     }
     private fun fetchnews()
     {

@@ -71,17 +71,7 @@
                 android:text="Popular Services"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="20sp" /> <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@+id/vguide2"
-                app:layout_constraintBottom_toBottomOf="@+id/tvpps"
-                app:layout_constraintTop_toTopOf="@+id/tvpps"
-                android:text="See All"
-                android:textSize="14sp"
-                android:textColor="@color/darkgreen"
-                android:background="@android:color/transparent"
-                app:rippleColor="@color/bgdark"/>
+                android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerservices"
@@ -108,18 +98,7 @@
                 android:textStyle="bold"
                 android:textSize="20sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/seealljobs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@+id/vguide2"
-                app:layout_constraintBottom_toBottomOf="@+id/tvrecent"
-                app:layout_constraintTop_toTopOf="@+id/tvrecent"
-                android:text="See All"
-                android:textSize="14sp"
-                android:textColor="@color/darkgreen"
-                android:background="@android:color/transparent"
-                app:rippleColor="@color/bgdark"/>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclernews"

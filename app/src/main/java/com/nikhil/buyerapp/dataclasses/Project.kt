@@ -5,7 +5,7 @@ import com.google.firebase.firestore.ServerTimestamp
 import java.sql.Timestamp
 
 data class Project (
-    @DocumentId
+
     val projectid:String="",
     val clientuid:String="",
     val clientName:String="",
