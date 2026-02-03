@@ -9,22 +9,33 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.nikhil.buyerapp.Login.LoginActivity
 import com.nikhil.buyerapp.R
+import com.nikhil.buyerapp.basichome.hosthome
 import com.nikhil.buyerapp.databinding.ActivitySignupBinding
-
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 
 class SignupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignupBinding
     private lateinit var onboardingAdapter: OnboardingAdapter
+
     private var dots: Array<View?> = arrayOfNulls(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Initialize FirebaseApp as early as possible.
+        // Ideally you do this once in a custom Application class (recommended).
+        FirebaseApp.initializeApp(this)
         enableEdgeToEdge()
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -116,9 +127,11 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
+
     private fun handleGetStarted() {
         startActivity(Intent(this,SignupActivity2::class.java))
 
     }
+
 }
 

@@ -70,31 +70,44 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onStart() {
         super.onStart()
-        val user=auth.currentUser
-        if(user==null)
-        {
-            Navigateto(SignupActivity::class.java)
+
+        // Get current user (this will be persisted by Firebase if everything is set up correctly)
+        val user = auth.currentUser
+
+        // If user is null -> not signed in -> go to SignUpActivity
+        if (user == null) {
+            navigateTo(SignupActivity::class.java)
             return
         }
-        lifecycleScope.launch {
-            val uid=user.uid
-            val prof=check(uid)
-            val destclass= if(prof) hosthome::class.java else SignupActivity::class.java
-            delay(3500L)
-            Navigateto(destclass)
 
+        // If user exists, check profile completion in Firestore and route accordingly
+        lifecycleScope.launch {
+            val uid = user.uid
+            val profComplete = check(uid) // returns true/false (never null)
+            val destClass = if (profComplete) hosthome::class.java else SignupActivity::class.java
+
+            // Optional splash delay for animation; adjust or remove as desired
+            delay(3500L)
+            navigateTo(destClass)
         }
     }
-
+    private fun navigateTo(destClass: Class<*>) {
+        val intent = Intent(this, destClass)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
     // we are using suspend function because its a one time check for realtime calls always use snapshot listener as in notepad file
-    private suspend fun check(uid:String):Boolean{
-        return try{
-            val document=db.collection("Users").document(uid).get().await()
+    private suspend fun check(uid: String): Boolean {
+        return try {
+            val document = db.collection("Users").document(uid).get().await()
+            // safely return boolean; if field is missing default to false
             document.getBoolean("profilecomplete") ?: false
-        }catch (e:Exception)
-        {
+        } catch (e: Exception) {
+
             false
         }
     }

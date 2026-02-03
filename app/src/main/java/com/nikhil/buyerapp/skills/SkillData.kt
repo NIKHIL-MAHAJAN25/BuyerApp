@@ -18,7 +18,7 @@ object SkillData {
                 skills = listOf("Node.js", "Express.js", "Django", "Flask", "Ruby on Rails", "Spring Boot", "ASP.NET Core", "Laravel", "GraphQL", "REST APIs")
             ),
         SkillsCat(
-                categoryName = "Mobile App Development",
+                categoryName = "Mobile App development",
                 skills = listOf("Android (Kotlin)", "Android (Java)", "iOS (Swift)", "iOS (Objective-C)", "React Native", "Flutter", "Jetpack Compose", "SwiftUI")
             ),
         SkillsCat(
@@ -30,7 +30,7 @@ object SkillData {
                 skills = listOf("AWS (Amazon Web Services)", "Microsoft Azure", "GCP (Google Cloud Platform)", "Docker", "Kubernetes", "Jenkins", "Git", "Terraform", "CI/CD", "Nginx", "Apache")
             ),
         SkillsCat(
-                categoryName = "Data Science & Machine Learning",
+                categoryName = "Data Science and  Machine Learning",
                 skills = listOf("TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy", "Jupyter Notebook", "Apache Spark", "R", "Machine Learning", "Data Analysis", "Data Visualization")
             ),
         SkillsCat(
