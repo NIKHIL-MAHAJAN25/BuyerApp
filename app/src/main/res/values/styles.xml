@@ -11,5 +11,10 @@
         <item name="chipCornerRadius">40dp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+    <style name="AppEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="colorControlActivated">@android:color/black</item>
+    </style>
+
 
 </resources>

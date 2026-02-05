@@ -29,6 +29,11 @@
         android:label="gemfrag"
         tools:layout="@layout/fragment_gemini"/>
     <fragment
+        android:id="@+id/freelancesearch"
+        android:name="com.nikhil.buyerapp.freelancesearch.FreeLanceSearch"
+        android:label="freefrag"
+        tools:layout="@layout/fragment_free_lance_search"/>
+    <fragment
         android:id="@+id/chat"
         android:name="com.nikhil.buyerapp.basichome.ChatFragment"
         android:label="chatfrag"

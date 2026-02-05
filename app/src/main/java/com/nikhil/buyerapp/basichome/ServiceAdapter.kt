@@ -1,6 +1,5 @@
 package com.nikhil.buyerapp.basichome
 
-import android.provider.ContactsContract.RawContacts.Data
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.nikhil.buyerapp.R
 import com.nikhil.buyerapp.databinding.ServiceItemBinding
 
-class ServiceAdapter:ListAdapter<DataSkill, ServiceAdapter.ViewHolder> (ServiceDiffCallback()){
+class ServiceAdapter(private val onclicked:(DataSkill)->Unit):ListAdapter<DataSkill, ServiceAdapter.ViewHolder> (ServiceDiffCallback()){
     inner class ViewHolder(private val binding: ServiceItemBinding): RecyclerView.ViewHolder(binding.root)
     {
         fun bind(service:DataSkill)
@@ -21,6 +20,9 @@ class ServiceAdapter:ListAdapter<DataSkill, ServiceAdapter.ViewHolder> (ServiceD
                 .centerCrop()
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(binding.serviceImage)
+            binding.root.setOnClickListener {
+                onclicked(service)
+            }
         }
 
     }
@@ -29,7 +31,7 @@ class ServiceAdapter:ListAdapter<DataSkill, ServiceAdapter.ViewHolder> (ServiceD
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ServiceAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder:ServiceAdapter.ViewHolder, position: Int) {
        val service=getItem(position)
         holder.bind(service)
     }

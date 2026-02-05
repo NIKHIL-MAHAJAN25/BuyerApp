@@ -26,7 +26,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.random.Random
 
-class EnterCode : AppCompatActivity() {
+class   EnterCode : AppCompatActivity() {
     lateinit var binding: ActivityEnterCodeBinding
     private var auth: FirebaseAuth =FirebaseAuth.getInstance()
     val auid=auth.currentUser?.uid

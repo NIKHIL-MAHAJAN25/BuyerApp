@@ -9,7 +9,7 @@ import android.view.View
 import retrofit2.Callback
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -18,10 +18,8 @@ import com.google.firebase.firestore.firestore
 import com.nikhil.buyerapp.BuildConfig
 import com.nikhil.buyerapp.R
 import com.nikhil.buyerapp.databinding.FragmentHome2Binding
-import com.nikhil.buyerapp.databinding.FragmentHomeBinding
 import com.nikhil.buyerapp.news.NewsAdapter
 import com.nikhil.buyerapp.news.NewsResponse
-import com.nikhil.buyerapp.news.Result
 import com.nikhil.buyerapp.news.RetroNews
 import com.nikhil.buyerapp.utils.logd
 import com.nikhil.buyerapp.utils.loge
@@ -129,7 +127,14 @@ class HomeFragment : Fragment() {
         }
     }
     private fun setup(){
-        serviceAdapter=ServiceAdapter()
+        serviceAdapter= ServiceAdapter { onclicked ->
+            val bundle= Bundle().apply {
+                putString("categoryprimskill",onclicked.title)
+            }
+                findNavController().navigate(
+                    R.id.freelancesearch,bundle
+                )
+        }
         binding.recyclerservices.apply {
             adapter=serviceAdapter
         }

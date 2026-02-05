@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nikhil.buyerapp.R
-import com.nikhil.buyerapp.basichome.ServiceAdapter
 import com.nikhil.buyerapp.databinding.NewsArticleBinding
 
 class NewsAdapter(private val onArticleClick: (String) -> Unit):ListAdapter<Result,NewsAdapter.ViewHolder> (articleDiffCallback()) {
