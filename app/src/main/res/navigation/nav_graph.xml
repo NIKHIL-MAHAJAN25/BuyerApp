@@ -45,7 +45,7 @@
         tools:layout="@layout/fragment_chat"/>
     <fragment
         android:id="@+id/profile"
-        android:name="com.nikhil.buyerapp.basichome.ProfileFragment"
+        android:name="com.nikhil.buyerapp.profile.CoreProfileFragment"
         android:label="profilefrag"
         tools:layout="@layout/fragment_profile"/>
     <fragment

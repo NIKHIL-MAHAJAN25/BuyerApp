@@ -1,203 +1,429 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F8F4"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".profile.CoreProfileFragment">
+    android:background="#F9F8F4">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F9F8F4"
-        tools:context=".home.ProfileFragment">
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/hguide1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.02" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vguide1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vguide2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/hguide2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.97" />
-        <ImageButton
-            android:id="@+id/logout"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/baseline_logout_24"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toStartOf="@id/vguide2"
-            app:layout_constraintTop_toBottomOf="@id/hguide1"/>
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/cameraFab"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintEnd_toEndOf="@id/profileImage"
-            app:layout_constraintBottom_toBottomOf="@id/profileImage"
-            app:backgroundTint="@color/white"
-            app:tint="@color/black"
-            app:maxImageSize="24dp"
-            app:fabSize="mini"/>
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileImage"
-            android:layout_width="wrap_content"
-            android:layout_height="110dp"
-            android:clickable="true"
-            android:background="@android:color/white"
-            android:elevation="4dp"
-            android:layout_marginTop="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background"
-
-            app:layout_constraintStart_toEndOf="@+id/vguide1"
-
-            app:layout_constraintTop_toBottomOf="@id/hguide1"
-            app:shapeAppearanceOverlay="@style/circleview" />
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileImage2"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:clickable="true"
-            app:layout_constraintTop_toTopOf="@id/cameraFab"
-            android:background="@android:color/white"
-            android:elevation="6dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/baseline_image_24"
-            app:layout_constraintBottom_toBottomOf="@id/cameraFab"
-            app:layout_constraintEnd_toEndOf="@id/cameraFab"
-            app:layout_constraintStart_toStartOf="@id/cameraFab"
-            app:shapeAppearanceOverlay="@style/circleview" />
-        <TextView
-            android:id="@+id/tvname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/hguide1"
-            android:text=""
-            android:textColor="@color/black"
-            android:layout_marginTop="35dp"
-            android:textSize="25sp"
-            android:layout_marginStart="13dp"
-            app:layout_constraintStart_toEndOf="@+id/profileImage"
-            />
-        <TextView
-            android:id="@+id/tvtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tvname"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_marginStart="13dp"
-            app:layout_constraintStart_toEndOf="@+id/profileImage"
-            />
-        <TextView
-            android:id="@+id/tvrate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tvtitle"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_marginStart="13dp"
-            app:layout_constraintStart_toEndOf="@+id/profileImage"
-            />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnEditProfile"
-            android:layout_marginTop="5dp"
+        <!-- Top Bar -->
+        <LinearLayout
+            android:id="@+id/topBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:cornerRadius="30dp"
-            android:text="Edit Profile"
-            android:textColor="@color/black"
-            app:strokeColor="@color/darkgreen"
-            app:strokeWidth="1dp"
-            app:layout_constraintEnd_toEndOf="@+id/chipskills"
-            app:layout_constraintStart_toStartOf="@+id/chipskills"
-            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipskills"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="My Profile"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+
+            <ImageButton
+                android:id="@+id/btnLogout"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/baseline_logout_24"
+                app:tint="#666666" />
+        </LinearLayout>
+
+        <!-- Profile Header Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profileCard"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:singleSelection="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="3dp"
+            android:backgroundTint="@color/bgdark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
-            app:layout_constraintTop_toBottomOf="@+id/btnEditProfile"
-            app:layout_constraintStart_toEndOf="@+id/vguide1"
-            app:layout_constraintEnd_toStartOf="@+id/vguide2"
-            app:selectionRequired="true"
-
-            app:singleLine="true"
-            app:chipSpacingHorizontal="8dp">
-            <com.google.android.material.chip.Chip
-                android:id="@+id/basichip"
-                app:chipCornerRadius="30dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                app:chipBackgroundColor="@color/chip_bg_filter"
-                android:checkable="true"
-                android:textColor="@color/black"
-                android:textAlignment="center"
-                android:minWidth="110dp"
-                app:chipStrokeColor="@android:color/transparent"
-                app:checkedIconVisible="true"
-                android:text="General" />
+                android:padding="24dp">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/skills"
-                app:chipCornerRadius="30dp"
+                <!-- Profile Image with Edit Button -->
+                <FrameLayout
+                    android:id="@+id/profileImageContainer"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="@color/white"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_launcher_foreground"
+                        app:shapeAppearanceOverlay="@style/circleview"
+                        app:strokeColor="#E0E0E0"
+                        app:strokeWidth="3dp" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btnEditPhoto"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
+                        app:backgroundTint="@color/white"
+                        app:elevation="4dp"
+                        app:fabCustomSize="32dp"
+                        app:maxImageSize="18dp"
+                        app:tint="#666666"
+                        app:srcCompat="@drawable/ic_launcher_foreground" />
+                </FrameLayout>
+
+                <!-- Name -->
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profileImageContainer"
+                    tools:text="John Doe" />
+
+                <!-- Company Name -->
+                <TextView
+                    android:id="@+id/tvCompanyName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:textColor="#666666"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvName"
+                    tools:text="Tech Solutions Inc." />
+
+                <!-- Stats Row -->
+                <LinearLayout
+                    android:id="@+id/statsLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvCompanyName">
+
+                    <!-- Rating Stat -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_star"
+                                app:tint="#FFC107" />
+
+                            <TextView
+                                android:id="@+id/tvRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                tools:text="4.5" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Rating"
+                            android:textColor="#999999"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="#E0E0E0" />
+
+                    <!-- Reviews Count -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvReviewCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:text="24" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Reviews"
+                            android:textColor="#999999"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                <!-- Edit Profile Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEditProfile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Edit Profile"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/darkgreen"
+                    app:cornerRadius="25dp"
+
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconTint="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statsLayout" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Payment Methods Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/paymentCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/bgdark"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                app:chipBackgroundColor="@color/chip_bg_filter"
-                android:checkable="true"
-                android:textColor="@color/black"
-                app:chipStrokeColor="@android:color/transparent"
-                android:textAlignment="center"
-                android:minWidth="110dp"
-                app:checkedIconVisible="true"
-                android:text="Skills" />
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/exp"
-                app:chipCornerRadius="30dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/baseline_currency_rupee_24"
+                        app:tint="#2E7D32" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Payment Methods"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnManagePayment"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="0dp"
+                        android:text="Manage"
+                        android:textColor="#2E7D32"
+
+                        app:iconGravity="end"
+                        app:iconPadding="4dp"
+                        app:iconTint="#2E7D32" />
+                </LinearLayout>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipPaymentMethods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:chipSpacingHorizontal="8dp">
+                    <!-- Payment chips added programmatically -->
+                </com.google.android.material.chip.ChipGroup>
+
+                <!-- Empty state for payment methods -->
+                <LinearLayout
+                    android:id="@+id/emptyPaymentState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:visibility="gone">
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="No payment methods added"
+                        android:textColor="#999999"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Reviews Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/reviewsCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/bgdark"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/paymentCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textColor="@color/black"
-                app:chipBackgroundColor="@color/chip_bg_filter"
-                android:checkable="true"
-                app:chipStrokeColor="@android:color/transparent"
-                app:checkedIconVisible="true"
-                android:minWidth="110dp"
-                android:textAlignment="center"
-                android:text="Experience" />
-        </com.google.android.material.chip.ChipGroup>
+                android:orientation="vertical"
+                android:padding="20dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/baseline_reviews_24"
+                        app:tint="#2E7D32" />
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="My Reviews"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnViewAllReviews"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="0dp"
+                        android:text="View All"
+                        android:textColor="#2E7D32"
+
+                        app:iconGravity="end"
+                        app:iconPadding="4dp"
+                        app:iconTint="#2E7D32" />
+                </LinearLayout>
+
+                <!-- Latest Reviews Preview (Show 2-3 reviews) -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRecentReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:nestedScrollingEnabled="false"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_review_compact" />
+
+                <!-- Empty state for reviews -->
+                <LinearLayout
+                    android:id="@+id/emptyReviewsState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:alpha="0.3"
+
+                        app:tint="#999999" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="No reviews yet"
+                        android:textColor="#999999"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 </androidx.core.widget.NestedScrollView>
