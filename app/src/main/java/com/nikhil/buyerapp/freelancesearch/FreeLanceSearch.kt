@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
@@ -65,32 +66,51 @@ class FreeLanceSearch : Fragment() {
         fetchandmap()
 
     }
-    fun fetchandmap()
-    {
-        db.collection("Freelancers").whereEqualTo("primaryskill",primskill).get().addOnSuccessListener {snapshots ->
-            val freelancers=snapshots.documents.mapNotNull {doc->
-                doc.toObject(FreelancerItem::class.java)?.copy(
-                    uid=doc.id
-                )
+    fun fetchandmap() {
+        db.collection("Freelancers").whereEqualTo("primaryskill", primskill).get()
+            .addOnSuccessListener { snapshots ->
+                Log.e("FIRESTORE", "Docs size = ${snapshots.size()}")
+                val tempList = mutableListOf<FreelancerItem>()
+
+                for (doc in snapshots.documents) {
+                    val freelancer = doc.toObject(FreelancerItem::class.java)
+                        ?.copy(uid = doc.id) ?: continue
+
+                    db.collection("Users")
+                        .document(doc.id) // SAME UID
+                        .get()
+                        .addOnSuccessListener { userDoc ->
+
+                            val profileUrl = userDoc.getString("profilePictureUrl") ?: ""
+
+                            val merged = freelancer.copy(
+                                profileImageUrl = profileUrl
+                            )
+
+                            tempList.add(merged)
+                            freeadapter.submitList(tempList.toList())
+
+
+                        }
+                }
             }
-            freeadapter.submitList(freelancers)
-        }.addOnFailureListener { e ->
-            Log.e("FIRESTORE", "Error fetching freelancers", e)
-        }
-
-
-        }
+    }
     fun setuprecycler(){
         freeadapter= FreelanceAdapter { onclicked ->
             val bundle= Bundle().apply {
                 putString("uid",onclicked.uid)
             }
             findNavController().navigate(
-                R.id.freelancerprofile,bundle
+                R.id.scaffold,bundle
             )
+
         }
         binding.recyclerresults.apply {
             adapter=freeadapter
+            layoutManager=LinearLayoutManager(requireContext())
+
+
+
         }
 
     }
