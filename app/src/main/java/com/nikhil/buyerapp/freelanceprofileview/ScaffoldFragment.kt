@@ -65,14 +65,7 @@ class ScaffoldFragment : Fragment() {
 
         loadinfo()
         loadotherinfo()
-        binding.logout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            requireActivity().finish()
 
-        }
         binding.chipskills.setOnCheckedStateChangeListener{group,checkedIds->
             val checkedId=checkedIds.firstOrNull()?:return@setOnCheckedStateChangeListener
             when (checkedId) {

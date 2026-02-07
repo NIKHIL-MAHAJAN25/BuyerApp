@@ -90,15 +90,7 @@
                 app:layout_constraintStart_toStartOf="@+id/tvInstName"
                 app:layout_constraintTop_toBottomOf="@+id/tvInstName" />
 
-            <!-- Menu Button -->
-            <ImageButton
-                android:id="@+id/btnMenu"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="More options"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
 
             <!-- Info Container Card -->
             <com.google.android.material.card.MaterialCardView
