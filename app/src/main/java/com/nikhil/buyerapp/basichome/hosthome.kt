@@ -37,6 +37,19 @@ class hosthome : AppCompatActivity() {
         enableEdgeToEdge()
         binding=ActivityHosthomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.host) { view, insets ->
+            val statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+
+            view.setPadding(
+                statusBars.left,
+                statusBars.top,
+                statusBars.right,
+                statusBars.bottom // ❌ IMPORTANT: NO bottom padding
+            )
+
+            WindowInsetsCompat.CONSUMED
+        }
+
 
 
 
@@ -70,11 +83,7 @@ class hosthome : AppCompatActivity() {
 
 
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
     }
     private fun checkprof() {
         val uid = auth.currentUser?.uid
